@@ -1,0 +1,23 @@
+// This is your Prisma schema file
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"  // You are using MySQL
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  
+  /// @zod.string.email()
+  email    String @unique
+
+  /// @zod.string.min(8).max(32)
+  password String
+
+  /// @zod.string.min(1).max(64)
+  name     String
+}
